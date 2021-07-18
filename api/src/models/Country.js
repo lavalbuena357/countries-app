@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     continent: {
-      type: DataTypes.ENUM('Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Polar', ''),
+      type: DataTypes.STRING,
       allowNull: false
     },
     capital: {
@@ -33,6 +33,24 @@ module.exports = (sequelize) => {
     },
     population: {
       type: DataTypes.INTEGER
+    },
+    demonym: {
+      type: DataTypes.STRING
+    },
+    timezones: {
+      type: DataTypes.ARRAY(DataTypes.TEXT)
+    },
+    borders: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
+    currencies: {
+      type: DataTypes.ARRAY(DataTypes.JSON)
+    },
+    languages: {
+      type: DataTypes.ARRAY(DataTypes.JSON)
+    },
+    latlng: {
+      type: DataTypes.ARRAY(DataTypes.FLOAT)
     }
   } , {
     timestamps: false
