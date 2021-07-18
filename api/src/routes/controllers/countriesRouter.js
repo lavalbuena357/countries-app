@@ -16,13 +16,19 @@ router.use(async (req, res, next) => {
         await api.data.forEach(el => Country.findOrCreate({
           where: {
             id: el.alpha3Code,
-            name: el.name,
+            name: `${el.translations.es || el.name}`,
             flag: el.flag,
             continent: el.region,
             capital: el.capital,
             subregion: el.subregion,
             area: el.area,
-            population: el.population
+            population: el.population,
+            demonym: el.demonym,
+            timezones: el.timezones,
+            borders: el.borders,
+            currencies: el.currencies,
+            languages: el.languages,
+            latlng: el.latlng
           }
         }))
       }; next();
@@ -39,5 +45,18 @@ router.get('/', async (req,  res) => {
     return res.json(countries)
   } catch(err) {console.log(err)}
 })
+
+//find by id
+router.get('/:idCountry', async (req, res) => {
+  const idCountry = req.params.idCountry;
+  const id = idCountry.toUpperCase();
+
+  try {
+    let countries = await Country.findByPk(id,{
+      attributes: ['id', 'name', 'flag', 'continent', 'capital', 'subregion', 'area', 'population', 'demonym', 'timezones', 'borders', 'currencies', 'languages', 'latlng']
+    });
+    return countries ? res.json(countries) : res.status(404).json({error: 'Invalid Country Code'})
+  } catch(err) {console.log(err)}
+});
 
 module.exports = router;
