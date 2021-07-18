@@ -29,4 +29,15 @@ router.use(async (req, res, next) => {
   } catch(err) {console.log(err)}
 })
 
+//routes
+router.get('/', async (req,  res) => {
+  try {
+    let countries;
+    countries = await Country.findAndCountAll({
+      attributes: ['id', 'name', 'flag', 'continent', 'population']
+    })
+    return res.json(countries)
+  } catch(err) {console.log(err)}
+})
+
 module.exports = router;
