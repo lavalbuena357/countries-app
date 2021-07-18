@@ -1,10 +1,11 @@
-const { Router } = require('express');
-// Importar todos los routers;
+const express = require('express');
+const countriesRouter = require ('./controllers/countriesRouter');
 
+const router = express.Router();
 
-const router = Router();
+router.use(express.json());
 
 // Configurar los routers
-
+router.use('/countries', countriesRouter);
 
 module.exports = router;
